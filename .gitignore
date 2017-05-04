@@ -1,3 +1,6 @@
 DATA_MANY_TOPICS.csv
+bigartm_batches/
+*.csv
+*.vw
 .ipynb_checkpoints
 recent_news.csv
