@@ -1,1 +1,1 @@
-## Classification and aggregation of news articles. University coursework.
+## Classification and aggregation of russian news articles. University coursework.
