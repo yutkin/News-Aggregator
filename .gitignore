@@ -13,6 +13,7 @@ docs/*.out
 docs/*.toc
 docs/*.fmt
 docs/*.fot
+docs/*.gz
 docs/*.cb
 docs/*.cb2
 web_server/__pycache__/
