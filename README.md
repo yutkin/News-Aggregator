@@ -1,1 +1,1 @@
-### Classification-of-News-Articles
+## Classification and aggregation of news articles. University coursework.
