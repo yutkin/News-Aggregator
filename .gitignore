@@ -15,3 +15,6 @@ docs/*.fmt
 docs/*.fot
 docs/*.cb
 docs/*.cb2
+web_server/__pycache__/
+web_server/parsers/__pycache__/
+web_server/models/*
