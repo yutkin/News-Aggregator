@@ -1,9 +1,8 @@
-DATA_MANY_TOPICS.csv
-bigartm_batches/
 *.csv
 *.vw
 .ipynb_checkpoints
-recent_news.csv
+data/*
+!data/README.md
 docs/*.aux
 docs/*.lof
 docs/*.log
