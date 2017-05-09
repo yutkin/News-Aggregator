@@ -4,8 +4,8 @@ bigartm_batches/
 *.vw
 .ipynb_checkpoints
 recent_news.csv
-report/*.aux
-report/*.log
-report/*.out
-report/*.gz
-report/*.toc
+docs/*.aux
+docs/*.log
+docs/*.out
+docs/*.gz
+docs/*.toc
