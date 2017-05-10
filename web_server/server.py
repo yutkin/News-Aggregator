@@ -15,7 +15,7 @@ HOURS_INIT = -24
 @app.route('/')
 def index():
     return redirect(
-        url_for('api_get_content', aggregator='Graphs', topic_count=5))
+        url_for('api_content', aggregator='Graphs', topic_count=5))
 
 # Get aggregated topic from <aggregator>, return HTML
 @app.route('/<aggregator>/<int:topic_count>')
@@ -33,7 +33,8 @@ def get_content(aggregator, topic_count=5):
                 topic_count=len(groups)))
 
     groups = groups[:topic_count]
-    return 'No front-end, use API'
+    return render_template('main.html', aggregator=aggregator,
+        count=analizer.count, groups=groups)
 
 # Same function, but for api, returns json
 @app.route('/api/<aggregator>/<int:topic_count>')
@@ -54,6 +55,10 @@ def api_get_content(aggregator, topic_count=5):
     groups = groups[:topic_count]
 
     return jsonify(groups)
+
+@app.template_filter('min')
+def reverse_filter(s):
+    return min(s)
 
 # Updating thread
 def update_data(interval):
