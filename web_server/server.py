@@ -15,7 +15,7 @@ HOURS_INIT = -24
 @app.route('/')
 def index():
     return redirect(
-        url_for('api_content', aggregator='Graphs', topic_count=5))
+        url_for('get_content', aggregator='Graphs', topic_count=5))
 
 # Get aggregated topic from <aggregator>, return HTML
 @app.route('/<aggregator>/<int:topic_count>')
