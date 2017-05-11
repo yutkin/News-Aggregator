@@ -83,8 +83,8 @@ class Analizer():
     def get_data(self):
         return self.output, self.last_date
 
-    def append_data(self, new_news):
-        if not new_news:
+    def append_data(self, news_list):
+        if not news_list:
             return
         # Cleaning and classifying new data
         new_data = self._data_to_pandas(news_list)
@@ -246,11 +246,16 @@ class Analizer():
 
     def _cut_text(self, text):
         """ Returns first paragraph of text """
+        ps = []
         for p in text.split('\n'):
             if p != '':
-                if len(p) > 140:
-                    p = p[:141]
-                return p.strip()
+                if len(p) > 500:
+                    ps.append(p[:500].strip() + '...')
+                    return "\n".join(ps)
+                else:
+                    ps.append(p.strip())
+                if len(ps) == 1:
+                    return "\n".join(ps)
         return ''
 
     
