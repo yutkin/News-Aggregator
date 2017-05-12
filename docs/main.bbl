@@ -40,4 +40,12 @@ Research-paper recommender systems: a literature survey~/ Joeran~Beel,
 \newblock Vol.~17, no.~4. ---
 \newblock Pp.~305--338.
 
+\bibitem{scikit-learn}
+\selectlanguageifdefined{english}
+Scikit-learn: Machine Learning in {P}ython~/ F.~Pedregosa, G.~Varoquaux,
+  A.~Gramfort et~al.~// \BibEmph{Journal of Machine Learning Research}. ---
+\newblock 2011. ---
+\newblock Vol.~12. ---
+\newblock Pp.~2825--2830.
+
 \end{thebibliography}
