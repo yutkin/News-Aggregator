@@ -1,4 +1,4 @@
-  {% for group in groups %}
+{% for group in groups %}
     {% if group|length > 0 %}
     <div class="w3-container">
        <h1 class="w3-xlarge w3-text-red"><b>{{ group[0]['title'] }}</b></h1>
@@ -12,7 +12,7 @@
         <div class="w3-container w3-hover-light-grey">
           <p><a href="{{ group[news]['url'] }}" class="w3-text"><b>{{ group[news]['title'] }}</b></a></p>
           <p>
-            <span class="w3-opacity">{{ group[news]['media'] }}</span>
+            <span class="w3-opacity">{{ group[news]['media'] }}</span> {{ group[news]['date'] }}
             <span class="w3-tag w3-red">{{ group[news]['labels']['SVM'] }}
             </span>
           </p>

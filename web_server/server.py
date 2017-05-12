@@ -15,7 +15,7 @@ HOURS_INIT = -12
 @app.route('/')
 def index():
     return redirect(
-        url_for('get_content', aggregator='Graphs', topic_count=5))
+        url_for('get_content', aggregator='Kmeans', topic_count=5))
 
 # Get aggregated topic from <aggregator>, return HTML
 @app.route('/<aggregator>/<int:topic_count>')
@@ -25,7 +25,7 @@ def get_content(aggregator, topic_count=5):
         groups = data[aggregator]
     else:
         return redirect(
-            url_for('get_content', aggregator='Graphs', topic_count=5))
+            url_for('get_content', aggregator='Kmeans', topic_count=5))
 
     if len(groups) < topic_count:
         return redirect(
