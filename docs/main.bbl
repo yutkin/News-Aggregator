@@ -38,7 +38,7 @@ Research-paper recommender systems: a literature survey~/ Joeran~Beel,
   Journal on Digital Libraries}. ---
 \newblock 2016. ---
 \newblock Vol.~17, no.~4. ---
-\newblock Pp.~305--338.
+\newblock Pp.~305--338. \BibUrl{ http://dx.doi.org/10.1007/s00799-015-0156-0}.
 
 \bibitem{scikit-learn}
 \selectlanguageifdefined{english}
@@ -65,5 +65,20 @@ Scikit-learn: Machine Learning in {P}ython~/ F.~Pedregosa, G.~Varoquaux,
 \newblock Heidelberg: Physica-Verlag HD, 2010. ---
 \newblock Pp.~177--186. \BibUrl{
   http://dx.doi.org/10.1007/978-3-7908-2604-3_16}.
+
+\bibitem{DBLP:journals/corr/abs-1301-3781}
+\selectlanguageifdefined{english}
+Efficient Estimation of Word Representations in Vector Space~/ Tomas~Mikolov,
+  Kai~Chen, Greg~Corrado, Jeffrey~Dean~// \BibEmph{CoRR}. ---
+\newblock 2013. ---
+\newblock Vol. abs/1301.3781. \BibUrl{ http://arxiv.org/abs/1301.3781}.
+
+\bibitem{Salton:1975:VSM:361219.361220}
+\selectlanguageifdefined{english}
+\BibEmph{Salton~G., Wong~A., Yang~C.~S.} A Vector Space Model for Automatic
+  Indexing~// \BibEmph{Commun. ACM}. ---
+\newblock 1975. --- nov. ---
+\newblock Vol.~18, no.~11. ---
+\newblock Pp.~613--620. \BibUrl{ http://doi.acm.org/10.1145/361219.361220}.
 
 \end{thebibliography}
