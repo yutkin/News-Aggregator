@@ -2,16 +2,26 @@ import pandas as pd
 from nltk.corpus import stopwords
 from stop_words import get_stop_words
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity 
+from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 from functools import lru_cache
 from pymystem3 import Mystem; mystem = Mystem()
 import numpy as np
 import datetime
 import fasttext
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, MiniBatchKMeans
 
 # Normalization functions
+from nltk.corpus import stopwords
+from stop_words import get_stop_words
+en_sw = get_stop_words('en')
+ru_sw = get_stop_words('ru')
+STOP_WORDS = set(en_sw) | set(ru_sw)
+STOP_WORDS = STOP_WORDS | set(stopwords.words('russian')) | set(stopwords.words('english'))
+STOP_WORDS = STOP_WORDS | set(['лента', 'новость', 'риа', 'тасс',
+                               'редакция', 'газета', 'корра', 'daily',
+                               'village', 'интерфакс', 'reuters'])
+
 class Pipeline(object):
     def __init__(self, *args):
         self.transformations = args
@@ -21,11 +31,16 @@ class Pipeline(object):
             res = f(res)
         return res
 
-en_sw = get_stop_words('en')
-ru_sw = get_stop_words('ru')
-STOP_WORDS = set(en_sw) | set(ru_sw)
-STOP_WORDS = STOP_WORDS | set(stopwords.words('russian')) | set(stopwords.words('english'))
-STOP_WORDS = STOP_WORDS | set(['лента', 'новость', 'риа', 'тасс', 'редакция'])
+def remove_ria(text):
+    prefix = text[:50]
+    ria = 'РИА Новости'
+    if ria in prefix:
+        text = text[text.find(ria)+len(ria)+1:]
+    return text
+
+def remove_tass(text):
+    prefix = text[:100]
+    return text[max(0, prefix.find('/.')+1):]
 
 def get_lower(text):
     return str(text).lower().strip()
@@ -45,14 +60,7 @@ def lemmatize_words(text):
             res.append(norm_form)
     return ' '.join(res)
 
-def remove_ria(text):
-    prefix = text[:50]
-    ria = 'РИА Новости'
-    if ria in prefix:
-        text = text[text.find(ria)+len(ria)+1:]
-    return text
-
-TEXT_PIPELINE = Pipeline(remove_ria, get_lower, remove_punctuation, lemmatize_words)
+TEXT_PIPELINE = Pipeline(remove_tass, remove_ria, get_lower, remove_punctuation, lemmatize_words)
 
 class Analizer():
     """ Class-wrapper for nlp data-processing """
@@ -74,8 +82,8 @@ class Analizer():
         self._classify(self.data)
         # Aggregating with ALL aggregators
         self.agrs_conf = {
-            'Graphs': {'coeff': 0.8},
-            'Kmeans': {'coeff': 0.8, 'clusters': self.count//5}
+            'Graphs': {'coeff': 0.6},
+            'Kmeans': {'coeff': 0.7, 'clusters': self.count//5}
         }
         aggregators = self._aggregate(self.data, self.agrs_conf)
         self._form_output(self.data, aggregators)
@@ -88,6 +96,7 @@ class Analizer():
             return
         # Cleaning and classifying new data
         new_data = self._data_to_pandas(news_list)
+        del news_list
         self._classify(new_data)
         # Adding new data to existing data
         self.data = pd.concat([new_data, self.data])
@@ -96,8 +105,8 @@ class Analizer():
         # Saving most recent news date for next update
         self.last_date = self.data.iloc[0].date
         # Dropping all data older then 24 hours
-        until_time = datetime.datetime.now() + datetime.timedelta(hours=-24)
-        self.data.drop(self.data[self.data.date < until_time].index, inplace=True)
+        until_time = datetime.datetime.now() + datetime.timedelta(hours=-12)
+        self.data = self.data[self.data.date >= until_time]
         self.count = self.data.shape[0]
         # Aggregate every time new data is coming
         aggregators = self._aggregate(self.data, self.agrs_conf)
@@ -178,11 +187,18 @@ class Analizer():
             'Kmeans': self._aggregate_Kmeans(data,
                 coeff=params['Kmeans']['coeff'],
                 clusters=params['Kmeans']['clusters'])
+            # 'Graphs_only_titles': self._aggregate_graphs(data,
+            #     coeff=params['Graphs']['coeff'],
+            #     titles=True),
+            # 'Kmeans_only_titles': self._aggregate_Kmeans(data,
+            #     coeff=params['Kmeans']['coeff'],
+            #     clusters=params['Kmeans']['clusters'],
+            #     titles=True)
         }
         return aggregators
 
-    def _aggregate_graphs(self, data, coeff):
-        TFIDF, tfidf_matrix = self._get_TFIDF(data, loaded=True)
+    def _aggregate_graphs(self, data, coeff, titles=False):
+        TFIDF, tfidf_matrix = self._get_TFIDF(data,  True, titles)
         cosines = []
         for tfidf_news in tfidf_matrix:
             cosine = cosine_similarity(tfidf_news, tfidf_matrix)
@@ -198,10 +214,7 @@ class Analizer():
                 Q = []
                 Q.append(v)
                 themes[v] = curr_theme
-                try:
-                    themes_ids[curr_theme].append(v)
-                except Exception as e:
-                    raise Exception(str(curr_theme))
+                themes_ids[curr_theme].append(v)
                 while Q:
                     curr_v = Q.pop(0)
                     for u, cos in enumerate(cosines[curr_v]):
@@ -213,11 +226,13 @@ class Analizer():
         groups = sorted(themes_ids, key=lambda x: -len(x))
         return groups
 
-    def _aggregate_Kmeans(self, data, coeff, clusters):
-        TFIDF, tfidf_matrix = self._get_TFIDF(data, loaded=True)
+    def _aggregate_Kmeans(self, data, coeff, clusters, titles=False):
+        TFIDF, tfidf_matrix = self._get_TFIDF(data, True, titles)
         if self.count < clusters:
             clusters = self.count
-        kmeans = KMeans(n_clusters=clusters, random_state=42).fit(tfidf_matrix)
+        # kmeans = KMeans(n_clusters=clusters, random_state=42).fit(tfidf_matrix)
+        kmeans = MiniBatchKMeans(n_clusters=clusters, n_init=10, max_iter=100).fit(
+            tfidf_matrix)
         clasters = kmeans.predict(tfidf_matrix)
         c_list = [ [] for i in range(clusters) ]
         for i, claster in enumerate(clasters):
@@ -228,8 +243,11 @@ class Analizer():
         groups = sorted(c_list, key=lambda x: -len(x))
         return groups
 
-    def _get_TFIDF(self, data, loaded=True):
-        trainX = self.data['title_norm'] + ' ' + self.data.text
+    def _get_TFIDF(self, data, loaded=True, titles=False):
+        if titles:
+            trainX = self.data['title_norm']
+        else:
+            trainX = self.data['title_norm'] + ' ' + self.data['text_norm']
         trainX = trainX.values
         if loaded:
             tfidf_vectorizer = self.TFIDF_load

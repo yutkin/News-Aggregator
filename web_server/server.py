@@ -9,7 +9,7 @@ from pprint import pprint
 
 app = Flask(__name__)
 UPDATE_RATE = 60
-HOURS_INIT = -24
+HOURS_INIT = -12
 
 # Redirecting to main page form root
 @app.route('/')
@@ -36,9 +36,9 @@ def get_content(aggregator, topic_count=5):
     return render_template('main.html', aggregator=aggregator,
         count=analizer.count, groups=groups)
 
-# Same function, but for api, returns json
-@app.route('/api/<aggregator>/<int:topic_count>')
-def api_get_content(aggregator, topic_count=5):
+# For ajax
+@app.route('/api/<aggregator>/<int:offset>')
+def api_get_content(aggregator, offset=5):
     data, _ = analizer.get_data()
     if aggregator in data:
         groups = data[aggregator]
@@ -47,14 +47,14 @@ def api_get_content(aggregator, topic_count=5):
         response.status_code = 404
         return response
 
-    if len(groups) < topic_count:
+    if len(groups) < offset + 5:
         response = jsonify(message="Topic number too large")
         response.status_code = 404
         return response
         
-    groups = groups[:topic_count]
+    groups = groups[offset:offset + 5]
 
-    return jsonify(groups)
+    return jsonify({'data': render_template('view.html', groups=groups)})
 
 @app.template_filter('min')
 def reverse_filter(s):

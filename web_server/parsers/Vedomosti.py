@@ -11,7 +11,7 @@ class Vedomosti(BaseParser):
     """docstring for Lenta"""
     def __init__(self, threads=cpu_count()*2-1):
         super(Vedomosti, self).__init__(
-            'VED', 'http://www.vedomosti.ru',
+            'VEDOMOSTI', 'http://www.vedomosti.ru',
             'http://www.vedomosti.ru/archive', datetime.datetime(2010, 1, 1),
             threads)
         self.page_type = 'html'

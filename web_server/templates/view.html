@@ -1,0 +1,26 @@
+  {% for group in groups %}
+    {% if group|length > 0 %}
+    <div class="w3-container">
+       <h1 class="w3-xlarge w3-text-red"><b>{{ group[0]['title'] }}</b></h1>
+      <hr style="width:50px;border:5px solid red" class="w3-round">
+    </div>
+    
+    {% for news_ in range(0, group|length, 3) %}
+    <div class="w3-row-padding">
+      {% for news in range(news_, (group|length, news_+3)|min) %}
+      <div class="w3-third w3-container w3-margin-bottom">
+        <div class="w3-container w3-hover-light-grey">
+          <p><a href="{{ group[news]['url'] }}" class="w3-text"><b>{{ group[news]['title'] }}</b></a></p>
+          <p>
+            <span class="w3-opacity">{{ group[news]['media'] }}</span>
+            <span class="w3-tag w3-red">{{ group[news]['labels']['SVM'] }}
+            </span>
+          </p>
+          <p>{{ group[news]['text'] }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    {% endif %}
+  {% endfor %}
