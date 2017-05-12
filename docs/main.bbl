@@ -48,4 +48,11 @@ Scikit-learn: Machine Learning in {P}ython~/ F.~Pedregosa, G.~Varoquaux,
 \newblock Vol.~12. ---
 \newblock Pp.~2825--2830.
 
+\bibitem{wang12simple}
+\selectlanguageifdefined{english}
+\BibEmph{Wang~Sida~I., Manning~Christopher~D.} Baselines and Bigrams: Simple,
+  Good Sentiment and Topic Classification~// Proceedings of the ACL. ---
+\newblock 2012. ---
+\newblock Pp.~90--94.
+
 \end{thebibliography}
