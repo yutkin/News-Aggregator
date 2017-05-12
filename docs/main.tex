@@ -308,7 +308,10 @@ Analysis) и предиктивные модели (пр. neural probabilistic l
 вычисленных статистик в вектора для каждого слова. В свою очередь, предиктивные модели напрямую пытаются предсказать слова по его контексту,
 <<выучивая>> вектора таким образом, чтобы снизить ошибку предсказаний.
 
-
+В частности, Word2Vec является вычислительно-эффективной реализацией предиктивной модели, которая <<выучивает>> векторные представления слов
+из необработанных текстовых данных. Есть две вариации алгоритма: Continuous Bag-of-Words (CBOW) и Skip-Gram. Алгоритмически они похожи, за 
+исключением того, что CBOW предсказывает слово
+%Word2vec is a particularly computationally-efficient predictive model for learning word embeddings from raw text. It comes in two flavors, the Continuous Bag-of-Words model (CBOW) and the Skip-Gram model (Section 3.1 and 3.2 in Mikolov et al.). Algorithmically, these models are similar, except that CBOW predicts target words (e.g. 'mat') from source context words ('the cat sits on the'), while the skip-gram does the inverse and predicts source context-words from the target words. This inversion might seem like an arbitrary choice, but statistically it has the effect that CBOW smoothes over a lot of the distributional information (by treating an entire context as one observation). For the most part, this turns out to be a useful thing for smaller datasets. However, skip-gram treats each context-target pair as a new observation, and this tends to do better when we have larger datasets. 
 
 
 \section{Агрегация новостных статей}
