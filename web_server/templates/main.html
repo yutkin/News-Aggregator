@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
@@ -12,6 +13,11 @@ body {font-size:16px;}
 .w3-half img:hover{opacity:1}
 a{ text-decoration: none; } 
 </style>
+<script type="text/javascript">
+  var aggr = '{{ aggregator }}';
+  var topic_count = {{ groups|length }}
+</script>
+
 <body>
 
 <!-- Sidebar/menu -->
@@ -22,7 +28,9 @@ a{ text-decoration: none; }
   </div>
   <div class="w3-bar-block">
     <a href="{{ url_for('get_content', aggregator='Graphs', topic_count=5) }}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white active">Graphs</a> 
-    <a href="{{ url_for('get_content', aggregator='Kmeans', topic_count=5) }}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Kmeans</a> 
+    <a href="{{ url_for('get_content', aggregator='Kmeans', topic_count=5) }}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Kmeans</a> <!-- 
+    <a href="{{ url_for('get_content', aggregator='Graphs_only_titles', topic_count=5) }}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white active">Graphs (only titles)</a> 
+    <a href="{{ url_for('get_content', aggregator='Kmeans_only_titles', topic_count=5) }}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Kmeans (only titles)</a>  -->
     <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Admin</a> 
   </div>
 </nav>
@@ -44,8 +52,9 @@ a{ text-decoration: none; }
     <h1 class="w3-xxxlarge"><b>{{ aggregator }} aggregator</b></h1>
     <h1 class="w3-xxlarge"><b>{{ count }} news processed</b></h1>
   </div>
-
+  <div id="view">
   {% for group in groups %}
+    {% if group|length > 0 %}
     <div class="w3-container">
        <h1 class="w3-xlarge w3-text-red"><b>{{ group[0]['title'] }}</b></h1>
       <hr style="width:50px;border:5px solid red" class="w3-round">
@@ -57,14 +66,21 @@ a{ text-decoration: none; }
       <div class="w3-third w3-container w3-margin-bottom">
         <div class="w3-container w3-hover-light-grey">
           <p><a href="{{ group[news]['url'] }}" class="w3-text"><b>{{ group[news]['title'] }}</b></a></p>
-          <p class="w3-opacity">{{ group[news]['media'] }} <span class="w3-tag w3-red">SVM: {{ group[news]['labels']['SVM'] }}</span> <span class="w3-tag w3-red">FT: {{ group[news]['labels']['fast_text'] }}</span></p>
+          <p>
+            <span class="w3-opacity">{{ group[news]['media'] }}</span>
+            <span class="w3-tag w3-red">{{ group[news]['labels']['SVM'] }}
+            </span>
+          </p>
           <p>{{ group[news]['text'] }}</p>
         </div>
       </div>
       {% endfor %}
     </div>
+    {% endfor %}
+    {% endif %}
   {% endfor %}
-  {% endfor %}
+  </div>
+  <button id="load-button" class="w3-btn w3-block w3-red">Load more</button>
 <!-- End page content -->
 </div>
 
@@ -82,6 +98,6 @@ function w3_close() {
     document.getElementById("myOverlay").style.display = "none";
 }
 </script>
-
+<script type="text/javascript" src="{{ url_for('static', filename='load.js') }}"></script>
 </body>
 </html>

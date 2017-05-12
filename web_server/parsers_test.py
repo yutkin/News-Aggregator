@@ -1,6 +1,6 @@
 import logging
 import datetime
-from parsers import Gazeta, Tass, Lenta, Vedomosti, Novaya
+from parsers import Gazeta, Tass, Lenta, Vedomosti, Novaya, Meduza
 
 def main():
     logging.basicConfig(level=logging.DEBUG,
@@ -9,26 +9,18 @@ def main():
     logging.getLogger('requests').setLevel(logging.CRITICAL)
 
     parsers_ = [
-        Gazeta(threads=4),
-        Tass(threads=32),
-        Lenta(threads=32),
-        Vedomosti(threads=32),
-        Novaya(threads=4)
+        Meduza(threads=32)
     ]
 
     news_list = []
 
     for parser in parsers_:
         print(parser.id)
-        news_list += parser.get_news(news_count=1,
-            until_time=datetime.datetime(2017, 4, 21, 0, 0, 0))
+        news_list += parser.get_news(
+            until_time=datetime.datetime(2017, 5, 12, 0, 0, 0))
 
     for news in news_list:
-        print(news['media'], news['url'])
-        for p in news['text'].split('\n'):
-            if p != '':
-                print(p)
-                break
+        print(news)
     print(len(news_list))
 
 if __name__ == '__main__':

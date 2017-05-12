@@ -1,4 +1,4 @@
-from parsers import Gazeta, Tass, Lenta, Vedomosti, Novaya
+from parsers import Gazeta, Tass, Lenta, Vedomosti, Novaya, Meduza
 import logging
 import time
 
@@ -14,7 +14,8 @@ def get_news(until_time, debug=False):
     thrs = 16
     parsers_ = [
         Gazeta(threads=thrs),
-        Tass(threads=thrs),
+        # Tass(threads=thrs),
+        Meduza(threads=thrs),
         Lenta(threads=thrs),
         Vedomosti(threads=thrs),
         Novaya(threads=4)

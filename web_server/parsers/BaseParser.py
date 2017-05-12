@@ -105,12 +105,11 @@ class BaseParser():
         self.curr_date = start_time
         url_counter = 0
         while sync_flag.value == 1:
-            if self.curr_date == start_time:
-                url_to_fetch = self._page_url()
-            else:
-                url_to_fetch = self._next_page_url()
-
             try:
+                if self.curr_date == start_time:
+                    url_to_fetch = self._page_url()
+                else:
+                    url_to_fetch = self._next_page_url()
                 content = self._get_content(url_to_fetch, type_=self.page_type)
             except Exception as err:
                 logging.error('Error: ' + str(err) + ' ' + url_to_fetch)
@@ -138,6 +137,8 @@ class BaseParser():
                 try:
                     # Url always first, date always second in params
                     news_params = self._get_news_params_in_page(news)
+                    if not news_params:
+                        continue
                     url = news_params[0]
                     self.curr_date = news_params[1]
                     if ((news_count is not None and url_counter >= news_count) or
