@@ -324,12 +324,24 @@ Front-end -- это пользовательский интерфейс, виз�
 	\label{svm_confusion}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure*}[t!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{svm_classif_report.pdf}
-	\caption{Precision, Recall и F1 мера для SVM по каждому из классов}
-	\label{svm_classif_report}
-\end{figure}
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\hspace*{-2cm}
+		\includegraphics[width=1\textwidth]{svm_classif_report.pdf}
+		\caption{Линейный SVM}
+		\label{svm_classif_report}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\hspace*{-2cm}
+		\includegraphics[width=1\textwidth]{lgb_w2v_bigartm_classif_report.pdf}
+		\caption{LightGBM + w2v + bigARTM}
+	\end{subfigure}
+	\caption{Precision, Recall и F1 мера по каждому из классов}
+\end{figure*}
 
 \begin{table}[h]
 	\resizebox{\textwidth}{!}{%
@@ -369,7 +381,8 @@ Front-end -- это пользовательский интерфейс, виз�
 			\textbf{weapons}         &               jane &  использоваться &       defense news &  министерство оборона &             миллиметр &  миллиметровый &          defense &             тип \\
 			\bottomrule
 	\end{tabular}}
-	\caption{Слова с наибольшим весом по каждой теме}
+	\caption{Слова с наибольшим весом по каждой теме (Веса из SVM)}
 	\label{table:topwords}
 \end{table}
+
 \end{document}
