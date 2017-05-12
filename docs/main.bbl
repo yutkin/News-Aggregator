@@ -55,4 +55,15 @@ Scikit-learn: Machine Learning in {P}ython~/ F.~Pedregosa, G.~Varoquaux,
 \newblock 2012. ---
 \newblock Pp.~90--94.
 
+\bibitem{Bottou2010}
+\selectlanguageifdefined{english}
+\BibEmph{Bottou~L{\'e}on}. Large-Scale Machine Learning with Stochastic
+  Gradient Descent~// Proceedings of COMPSTAT'2010: 19th International
+  Conference on Computational StatisticsParis France, August 22-27, 2010
+  Keynote, Invited and Contributed Papers~/ Ed. by Yves~Lechevallier,
+  Gilbert~Saporta. ---
+\newblock Heidelberg: Physica-Verlag HD, 2010. ---
+\newblock Pp.~177--186. \BibUrl{
+  http://dx.doi.org/10.1007/978-3-7908-2604-3_16}.
+
 \end{thebibliography}
