@@ -6,6 +6,7 @@ data/*
 docs/*.aux
 docs/*.lof
 docs/*.log
+docs/*.blg
 docs/*.lot
 docs/*.fls
 docs/*.out

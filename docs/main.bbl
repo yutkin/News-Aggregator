@@ -1,4 +1,4 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
 \def\selectlanguageifdefined#1{
 \expandafter\ifx\csname date#1\endcsname\relax
 \else\language\csname l@#1\endcsname\fi}
@@ -6,5 +6,21 @@
 \ifx\undefined\BibUrl\def\BibUrl#1{\url{#1}}\else\fi
 \ifx\undefined\BibAnnote\long\def\BibAnnote#1{}\else\fi
 \ifx\undefined\BibEmph\def\BibEmph#1{\emph{#1}}\else\fi
+
+\bibitem{weston99svms}
+\selectlanguageifdefined{english}
+\BibEmph{Weston~Jason, Watkins~Chris}. Support Vector Machines for Multi-class
+  Pattern Recognition~// Proc. European Symposium on Artificial Neural
+  Networks. ---
+\newblock 1999. ---
+\newblock Pp.~219--224.
+
+\bibitem{DBLP:journals/corr/ConneauSBL16}
+\selectlanguageifdefined{english}
+Very Deep Convolutional Networks for Natural Language Processing~/
+  Alexis~Conneau, Holger~Schwenk, Lo{\"{\i}}c~Barrault, Yann~LeCun~//
+  \BibEmph{CoRR}. ---
+\newblock 2016. ---
+\newblock Vol. abs/1606.01781. \BibUrl{ http://arxiv.org/abs/1606.01781}.
 
 \end{thebibliography}
