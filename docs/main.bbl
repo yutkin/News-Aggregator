@@ -23,4 +23,21 @@ Very Deep Convolutional Networks for Natural Language Processing~/
 \newblock 2016. ---
 \newblock Vol. abs/1606.01781. \BibUrl{ http://arxiv.org/abs/1606.01781}.
 
+\bibitem{doi:10.1108/eb026526}
+\selectlanguageifdefined{english}
+\BibEmph{Jones~Karen~Sparck}. A statistical interpretation of term specificity
+  and its application in retrieval~// \BibEmph{Journal of Documentation}. ---
+\newblock 1972. ---
+\newblock Vol.~28, no.~1. ---
+\newblock Pp.~11--21. \BibUrl{ http://dx.doi.org/10.1108/eb026526}.
+
+\bibitem{Beel2016}
+\selectlanguageifdefined{english}
+Research-paper recommender systems: a literature survey~/ Joeran~Beel,
+  Bela~Gipp, Stefan~Langer, Corinna~Breitinger~// \BibEmph{International
+  Journal on Digital Libraries}. ---
+\newblock 2016. ---
+\newblock Vol.~17, no.~4. ---
+\newblock Pp.~305--338.
+
 \end{thebibliography}
