@@ -8,8 +8,8 @@ from functools import lru_cache
 from pymystem3 import Mystem; mystem = Mystem()
 import numpy as np
 import datetime
-import fasttext
 from sklearn.cluster import KMeans, MiniBatchKMeans
+import time
 
 # Normalization functions
 from nltk.corpus import stopwords
@@ -82,8 +82,8 @@ class Analizer():
         self._classify(self.data)
         # Aggregating with ALL aggregators
         self.agrs_conf = {
-            'Graphs': {'coeff': 0.6},
-            'Kmeans': {'coeff': 0.7, 'clusters': self.count//5}
+            'Graphs': {'coeff': 0.5},
+            'Kmeans': {'coeff': 0.5, 'clusters': self.count//5}
         }
         aggregators = self._aggregate(self.data, self.agrs_conf)
         self._form_output(self.data, aggregators)
@@ -127,10 +127,9 @@ class Analizer():
                         'text': self._cut_text(data.iloc[id_].text),
                         'labels': {
                             'SVM': self._class_to_str(
-                                data.iloc[id_]['SVM_class']),
-                            'fast_text': self._class_to_str(
-                                data.iloc[id_]['fast_text_class'])
-                        }
+                                data.iloc[id_]['SVM_class'])
+                        },
+                        'date': self._date_to_str(data.iloc[id_]['date'])
                     })
 
     def _data_to_pandas(self, news_list):
@@ -156,7 +155,7 @@ class Analizer():
         self.classifiers_ids = ('SVM_class', 'fast_text_class')
         # Adding colomn with class for each classifier
         self._classify_SVM(data)
-        self._classify_fast_text(data)
+        # self._classify_fast_text(data)
         # Add new classifier here
 
     def _classify_SVM(self, data):
@@ -187,13 +186,6 @@ class Analizer():
             'Kmeans': self._aggregate_Kmeans(data,
                 coeff=params['Kmeans']['coeff'],
                 clusters=params['Kmeans']['clusters'])
-            # 'Graphs_only_titles': self._aggregate_graphs(data,
-            #     coeff=params['Graphs']['coeff'],
-            #     titles=True),
-            # 'Kmeans_only_titles': self._aggregate_Kmeans(data,
-            #     coeff=params['Kmeans']['coeff'],
-            #     clusters=params['Kmeans']['clusters'],
-            #     titles=True)
         }
         return aggregators
 
@@ -222,16 +214,14 @@ class Analizer():
                             themes[u] = curr_theme
                             themes_ids[curr_theme].append(u)
                             Q.append(u)
-
-        groups = sorted(themes_ids, key=lambda x: -len(x))
-        return groups
+        return self._sort_groups(themes_ids)
 
     def _aggregate_Kmeans(self, data, coeff, clusters, titles=False):
         TFIDF, tfidf_matrix = self._get_TFIDF(data, True, titles)
         if self.count < clusters:
             clusters = self.count
         # kmeans = KMeans(n_clusters=clusters, random_state=42).fit(tfidf_matrix)
-        kmeans = MiniBatchKMeans(n_clusters=clusters, n_init=10, max_iter=100).fit(
+        kmeans = MiniBatchKMeans(n_clusters=clusters, batch_size=32, n_init=10, max_iter=100).fit(
             tfidf_matrix)
         clasters = kmeans.predict(tfidf_matrix)
         c_list = [ [] for i in range(clusters) ]
@@ -240,7 +230,19 @@ class Analizer():
             if cosine_similarity(tfidf_news,
                 kmeans.cluster_centers_[claster].reshape(1, -1))[0][0] >= coeff:
                 c_list[claster].append(i)
-        groups = sorted(c_list, key=lambda x: -len(x))
+        return self._sort_groups(c_list)
+
+    def get_avg_time(self, group):
+        avg = 0
+        for n in group:
+            avg += time.mktime(self.data.iloc[n]['date'].timetuple())
+        return avg//len(group)
+
+    def _sort_groups(self, groups):
+        groups = filter(lambda x: len(x) > 1, groups)
+        groups = sorted(groups, key=lambda x: self.get_avg_time(x), reverse=True)
+        groups = list(map(lambda x: sorted(x,
+            key=lambda y: self.data.iloc[y]['date'], reverse=True), groups))
         return groups
 
     def _get_TFIDF(self, data, loaded=True, titles=False):
@@ -276,4 +278,6 @@ class Analizer():
                     return "\n".join(ps)
         return ''
 
+    def _date_to_str(self, date):
+        return date.strftime('%a %H:%M')
     
