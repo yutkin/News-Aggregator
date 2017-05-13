@@ -234,7 +234,7 @@ class Analizer():
                 c_list[claster].append(i)
         return self._sort_groups(c_list)
 
-    def get_avg_time(self, group):
+    def _get_avg_time(self, group):
         avg = 0
         for n in group:
             avg += time.mktime(self.data.iloc[n]['date'].timetuple())
@@ -242,7 +242,7 @@ class Analizer():
 
     def _sort_groups(self, groups):
         groups = filter(lambda x: len(x) > 1, groups)
-        groups = sorted(groups, key=lambda x: self.get_avg_time(x), reverse=True)
+        groups = sorted(groups, key=lambda x: self._get_avg_time(x), reverse=True)
         groups = list(map(lambda x: sorted(x,
             key=lambda y: self.data.iloc[y]['date'], reverse=True), groups))
         return groups
