@@ -90,4 +90,11 @@ Efficient Estimation of Word Representations in Vector Space~/ Tomas~Mikolov,
 \newblock Pp.~45--50. ---
 \newblock \url{http://is.muni.cz/publication/884893/en}.
 
+\bibitem{DBLP:journals/corr/ChenG16}
+\selectlanguageifdefined{english}
+\BibEmph{Chen~Tianqi, Guestrin~Carlos}. XGBoost: {A} Scalable Tree Boosting
+  System~// \BibEmph{CoRR}. ---
+\newblock 2016. ---
+\newblock Vol. abs/1603.02754. \BibUrl{ http://arxiv.org/abs/1603.02754}.
+
 \end{thebibliography}
