@@ -97,4 +97,21 @@ Efficient Estimation of Word Representations in Vector Space~/ Tomas~Mikolov,
 \newblock 2016. ---
 \newblock Vol. abs/1603.02754. \BibUrl{ http://arxiv.org/abs/1603.02754}.
 
+\bibitem{Blei:2012:PTM:2133806.2133826}
+\selectlanguageifdefined{english}
+\BibEmph{Blei~David~M.} Probabilistic Topic Models~// \BibEmph{Commun. ACM}.
+  ---
+\newblock 2012. --- apr. ---
+\newblock Vol.~55, no.~4. ---
+\newblock Pp.~77--84. \BibUrl{ http://doi.acm.org/10.1145/2133806.2133826}.
+
+\bibitem{Daud2010}
+\selectlanguageifdefined{english}
+Knowledge discovery through directed probabilistic topic models: a survey~/
+  Ali~Daud, Juanzi~Li, Lizhu~Zhou, Faqir~Muhammad~// \BibEmph{Frontiers of
+  Computer Science in China}. ---
+\newblock 2010. ---
+\newblock Vol.~4, no.~2. ---
+\newblock Pp.~280--301. \BibUrl{ http://dx.doi.org/10.1007/s11704-009-0062-y}.
+
 \end{thebibliography}
