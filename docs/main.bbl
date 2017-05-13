@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \def\selectlanguageifdefined#1{
 \expandafter\ifx\csname date#1\endcsname\relax
 \else\language\csname l@#1\endcsname\fi}
@@ -80,5 +80,14 @@ Efficient Estimation of Word Representations in Vector Space~/ Tomas~Mikolov,
 \newblock 1975. --- nov. ---
 \newblock Vol.~18, no.~11. ---
 \newblock Pp.~613--620. \BibUrl{ http://doi.acm.org/10.1145/361219.361220}.
+
+\bibitem{rehurek_lrec}
+\selectlanguageifdefined{English}
+\BibEmph{{\v R}eh{\r u}{\v r}ek~Radim, Sojka~Petr}. {Software Framework for
+  Topic Modelling with Large Corpora}~// {Proceedings of the LREC 2010 Workshop
+  on New Challenges for NLP Frameworks}. ---
+\newblock Valletta, Malta: ELRA, 2010. --- May. ---
+\newblock Pp.~45--50. ---
+\newblock \url{http://is.muni.cz/publication/884893/en}.
 
 \end{thebibliography}
