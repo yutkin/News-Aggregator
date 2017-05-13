@@ -72,12 +72,14 @@ class Analizer():
             self.TFIDF_load = pickle.load(pickle_file)
         with open('./models/LabelEncoder.bin', 'rb') as pickle_file:
             self.labels = pickle.load(pickle_file)
-        self.fast_text = fasttext.load_model('./models/fast_text.bin')
+        # self.fast_text = fasttext.load_model('./models/fast_text.bin')
         # Convering input news to pd table
         self.data = self._data_to_pandas(news_list)
         # Saving most recent news date for updating data
         self.last_date = self.data.iloc[0].date
         self.count = self.data.shape[0]
+        if self.count > 300:
+            self.data = self.data[:300]
         # Classifying news w/ ALL classifiers
         self._classify(self.data)
         # Aggregating with ALL aggregators
@@ -96,7 +98,6 @@ class Analizer():
             return
         # Cleaning and classifying new data
         new_data = self._data_to_pandas(news_list)
-        del news_list
         self._classify(new_data)
         # Adding new data to existing data
         self.data = pd.concat([new_data, self.data])
@@ -105,9 +106,10 @@ class Analizer():
         # Saving most recent news date for next update
         self.last_date = self.data.iloc[0].date
         # Dropping all data older then 24 hours
-        until_time = datetime.datetime.now() + datetime.timedelta(hours=-12)
-        self.data = self.data[self.data.date >= until_time]
-        self.count = self.data.shape[0]
+        if self.count > 300:
+            until_time = datetime.datetime.now() + datetime.timedelta(hours=-12)
+            self.data = self.data[self.data.date >= until_time]
+            self.count = self.data.shape[0]
         # Aggregate every time new data is coming
         aggregators = self._aggregate(self.data, self.agrs_conf)
         self._form_output(self.data, aggregators)
