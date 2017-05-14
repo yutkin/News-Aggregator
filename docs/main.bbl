@@ -7,6 +7,14 @@
 \ifx\undefined\BibAnnote\long\def\BibAnnote#1{}\else\fi
 \ifx\undefined\BibEmph\def\BibEmph#1{\emph{#1}}\else\fi
 
+\bibitem{mystem}
+\selectlanguageifdefined{english}
+\BibEmph{Ilya~Segalovich}. A fast morphological algorithm with unknown
+  wordguessing induced by a dictionary for a web search engine~// \BibEmph{In
+  Proc. ofMLMTA-2003. Las Vegas.} ---
+\newblock 2003. \BibUrl{
+  https://download.yandex.ru/company/iseg-las-vegas.pdf}.
+
 \bibitem{weston99svms}
 \selectlanguageifdefined{english}
 \BibEmph{Weston~Jason, Watkins~Chris}. Support Vector Machines for Multi-class
