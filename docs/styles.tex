@@ -15,6 +15,7 @@
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{myblack}{rgb}{0,0,0}
 
 \hypersetup{				% Гиперссылки
     unicode=true,          % non-Latin characters in Acrobat’s bookmarks
@@ -63,11 +64,11 @@
 \renewcommand{\labelitemi}{\normalfont\bfseries{--}}
 
 % Перечисление строчными буквами русского алфавита (ГОСТ 2.105-95, 4.1.7)
-\makeatletter
-    \AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
-\makeatother
-\setlist[enumerate,1]{label=\asbuk{enumi})} % первого уровня 1), 2)...
-\setlist[enumerate,2]{label=\arabic*)} % второго уровня а), б) ... 
+%\makeatletter
+%    \AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
+%\makeatother
+%\setlist[enumerate,1]{label=\asbuk{enumi})} % первого уровня 1), 2)...
+%\setlist[enumerate,2]{label=\arabic*)} % второго уровня а), б) ... 
 
 \setlist{nosep,%                                    % Единый стиль для всех списков (пакет enumitem), без дополнительных интервалов.
     labelindent=\parindent,leftmargin=*%            % Каждый пункт, подпункт и перечисление записывают с абзацного отступа
