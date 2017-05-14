@@ -47,10 +47,12 @@ def api_get_content(aggregator, offset=5):
         response.status_code = 404
         return response
 
-    if len(groups) < offset + 5:
+    if len(groups) <= offset:
         response = jsonify(message="Topic number too large")
         response.status_code = 404
         return response
+    if len(groups) < offset + 5:
+        groups = groups[offset:len(groups)]
         
     groups = groups[offset:offset + 5]
 
