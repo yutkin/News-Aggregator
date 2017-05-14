@@ -55,6 +55,12 @@
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 
 \input{styles} % Файл со стилями
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+%
+
 \begin{document}
 \include{cover_page} % Титульник
 \include{abstract} % Аннотация
@@ -587,7 +593,7 @@ $ comp \gets 0 $\;
 	\label{table:svm_topwords}
 \end{table}
 
-\begin{figure}[h!]
+\begin{figure}[t!]
 	\centering
 	\includegraphics[width=1\textwidth]{228_news.pdf}
 	\caption{Пользовательский интерфейс}
