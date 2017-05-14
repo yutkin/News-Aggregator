@@ -457,12 +457,21 @@ $$
 в кластеры и помечаются как посещённые, затем начинается новый поиск от следующей непомеченной вершины.
 Такой поиск производится до тех пор, пока все вершины не станут находится в каком-либо кластере.
 
+<<<<<<< Updated upstream
 Псевдокод алгоритма приведён на рисунке \ref{pseudo}.
+=======
+Псевдокод алгоритма приведён на рисунке \ref{pseudo}, где threshold~--- пороговое значение
+веса ребер, comp~--- номер текущей компоненты, $V$~---список вершин, $E$~--- список рёбер,
+$v,u,n$~---вершины, $(u,v),(u,n)$~--- рёбра,
+$w(u,v)$~--- вес ребра $uv$, $с[v]$~--- компонента вершины $v$, $Q,S$~--- очереди.
+
+>>>>>>> Stashed changes
 \begin{figure}[h]
 \begin{algorithm}[H]
 \DontPrintSemicolon
+$\text{threshold} \gets 0.5$\;
 $ comp \gets 0 $\;
-\For{$uv \in E$}{
+\For{$(u,v) \in E$}{
     $w(u,v) \gets \cos{(u,v)}$\;
 }
 \For{$v \in V$}{
@@ -477,7 +486,7 @@ $ comp \gets 0 $\;
 		    $u \gets pop(Q)$\;
 		    $c[u] \gets comp$ 
 		    $S \gets S \cup \{v\}$\;
-		    \For{$n \notin S, un \in E$}{
+		    \For{$n \notin S, (u,n) \in E$}{
 		        \If{$w(u, n) \geqslant \text{threshold}$ {\bf and} $c[n] = nil $} {
 		            $Q \gets Q \cup \{n\}$\;
 		        }
