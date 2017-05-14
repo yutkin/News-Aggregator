@@ -129,4 +129,22 @@ Knowledge discovery through directed probabilistic topic models: a survey~/
   Collections~// \BibEmph{Frontiers of Computer Science in China}. \BibUrl{
   https://s3-eu-west-1.amazonaws.com/artm/Voron15aist.pdf}.
 
+\bibitem{macqueen1967}
+\selectlanguageifdefined{english}
+\BibEmph{MacQueen~J.} Some methods for classification and analysis of
+  multivariate observations~// Proceedings of the Fifth Berkeley Symposium on
+  Mathematical Statistics and Probability, Volume 1: Statistics. ---
+\newblock Berkeley, Calif.: University of California Press, 1967. ---
+\newblock Pp.~281--297. \BibUrl{
+  http://projecteuclid.org/euclid.bsmsp/1200512992}.
+
+\bibitem{doi:10.1080/01969727308546046}
+\selectlanguageifdefined{english}
+\BibEmph{Dunn~J.C.} A Fuzzy Relative of the ISODATA Process and Its Use in
+  Detecting Compact Well-Separated Clusters~// \BibEmph{Journal of
+  Cybernetics}. ---
+\newblock 1973. ---
+\newblock Vol.~3, no.~3. ---
+\newblock Pp.~32--57. \BibUrl{ http://dx.doi.org/10.1080/01969727308546046}.
+
 \end{thebibliography}
