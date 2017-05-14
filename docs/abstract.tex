@@ -1,24 +1,21 @@
 \titleformat{\section}[block]
 {\centering\fontsize{16pt}{18pt}\selectfont\bfseries}{\thesection\cftsecaftersnum}{0.5em}{} % по центру
+
 \section*{Аннотация}
-% Больше данных о результатах
-% Говно какое-то получилось, завтра перепишу.
-В данной работе изучаются алгоритмы классификации и агрегации текста, основанные на
-методах и моделях обработки языка, и применяются на русскоязычных новостных статьях.
-В процессе работы удалось собрать и обработать большой корпус новостей, на котором
-обучены следующие модели: TFIDF, SVM, FastText, word2vec, Kmeans. Классификаторы
-показали точность 86-88\%. Для визуализации работы перечисленных алгоритмов на практике
-реализован новостной агрегатор в виде web-сервиса, агрегирующий и классифицирующий актуальные
-новости с сайтов российских СМИ. 
+В данной курсовой работе изучаются подходы к сбору, анализу, классификации и кластеризации текстовых данных.
+В результате работы удалось собрать корпус новостей, состоящий более чем из 1 млн документов, применить
+два подхода к классификации текстовых документов: линейный SVM и градиентный бустинг над деревьями,
+а также KMeans и графовые алгоритмы к кластеризации новостей. Для демонстрации практической значимости исследуемых алгоритмов, был разработан 
+веб-сервис, который в реальном времени агрегирует новости от различных СМИ, автоматически расставляет для них теги и объединяет в кластеры 
+семантически близкие статьи.
 
 \section*{Abstract}
-The main purposes of this work are the natural language processing models and algorithms of the text aggregation
-and classification and application of these models and algorithms on the russian media news articles.
-In the course of this work a dataset with the significant number of news was gathered and processed.
-On this dataset TFIDF, SVM, FastText, word2vec, Kmeans models were trained. The accuracy of the classifiers
-is between 86 and 88 depending on a model. To show how these algorithms are working on practice the news
-aggregation web-service was implemented, which aggregates and classifies articles in real-time.
-% \lipsum[3-3]
+The coursework is dedicated to research of mining, analysis, classification and clustering methods of text data.
+As a result, a dataset with more than 1 million Russian news articles was collected. Two approaches for text classification were successfully 
+applied: linear SVM and gradient boosted trees. For solving clustering problem KMeans and graph-based algorithms were utilized. In order to show a 
+practical  appliance of the research methods, web-service was developed.
+The web-service is able to aggregate and analyze text data in the real-time. Moreover, it automatically labels news articles
+and cluster them by semantic similarity.
 
 \titleformat{\section}[block]
 {\raggedright\fontsize{16pt}{18pt}\selectfont\bfseries}{\thesection\cftsecaftersnum}{0.5em}{} % справа
